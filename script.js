@@ -1,10 +1,20 @@
 // FAQ Accordion
-document.querySelectorAll(".faq-question").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const answer = btn.nextElementSibling;
-      answer.style.display = answer.style.display === "block" ? "none" : "block";
-    });
+document.querySelectorAll(".faq-question").forEach(question => {
+  question.addEventListener("click", () => {
+    const answer = question.nextElementSibling;
+
+    // Toggle open / close
+    if (answer.style.display === "block") {
+      answer.style.display = "none";
+    } else {
+      // Close others
+      document.querySelectorAll(".faq-answer").forEach(a => {
+        a.style.display = "none";
+      });
+      answer.style.display = "block";
+    }
   });
+});
   
   // Carousel
   let index = 0;
@@ -26,26 +36,6 @@ document.querySelectorAll(".faq-question").forEach(btn => {
     index = (index - 1 + dots.length) % dots.length;
     updateCarousel();
   };
-
-
-
-  /************* FAQ ACCORDION *************/
-document.querySelectorAll(".faq-question").forEach(question => {
-  question.addEventListener("click", () => {
-    const answer = question.nextElementSibling;
-
-    // Toggle open / close
-    if (answer.style.display === "block") {
-      answer.style.display = "none";
-    } else {
-      // Close others
-      document.querySelectorAll(".faq-answer").forEach(a => {
-        a.style.display = "none";
-      });
-      answer.style.display = "block";
-    }
-  });
-});
 
 
 /************* CAROUSEL *************/
