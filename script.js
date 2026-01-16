@@ -1,3 +1,5 @@
+console.log("Script loaded");
+
 // FAQ Accordion
 document.querySelectorAll(".faq-question").forEach(question => {
   question.addEventListener("click", () => {
@@ -15,30 +17,8 @@ document.querySelectorAll(".faq-question").forEach(question => {
     }
   });
 });
-  
-  // Carousel
-  let index = 0;
-  const images = document.querySelector(".images");
-  const dots = document.querySelectorAll(".dot");
-  
-  function updateCarousel() {
-    images.style.transform = `translateX(${-index * 320}px)`;
-    dots.forEach(d => d.classList.remove("active"));
-    dots[index].classList.add("active");
-  }
-  
-  document.querySelector(".next").onclick = () => {
-    index = (index + 1) % dots.length;
-    updateCarousel();
-  };
-  
-  document.querySelector(".prev").onclick = () => {
-    index = (index - 1 + dots.length) % dots.length;
-    updateCarousel();
-  };
 
-
-/************* CAROUSEL *************/
+// Carousel
 const imagesContainer = document.querySelector(".images");
 const images = document.querySelectorAll(".images img");
 const dots = document.querySelectorAll(".dot");
@@ -49,7 +29,7 @@ let currentIndex = 0;
 
 // Calculate image width dynamically
 function getImageWidth() {
-  return images[0].offsetWidth + 20; // image + margin
+  return images[0] ? images[0].offsetWidth + 20 : 320; // fallback to 320
 }
 
 function updateCarousel() {
@@ -57,7 +37,7 @@ function updateCarousel() {
     `translateX(-${currentIndex * getImageWidth()}px)`;
 
   dots.forEach(dot => dot.classList.remove("active"));
-  dots[currentIndex].classList.add("active");
+  if (dots[currentIndex]) dots[currentIndex].classList.add("active");
 }
 
 nextBtn.addEventListener("click", () => {
@@ -82,4 +62,9 @@ dots.forEach((dot, index) => {
     currentIndex = index;
     updateCarousel();
   });
+});
+
+// Initialize carousel after images load
+window.addEventListener("load", () => {
+  updateCarousel();
 });
